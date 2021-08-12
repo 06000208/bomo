@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>structures/Bomo.js - Documentation</title>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <span class="navicon"></span>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bomo.html">Bomo</a><ul class='members'><li class='list-title'>Members</li><li data-type='member'><a href="Bomo.html#app">app</a></li><li data-type='member'><a href="Bomo.html#app">app</a></li><li data-type='member'><a href="Bomo.html#db">db</a></li><li data-type='member'><a href="Bomo.html#db">db</a></li><li data-type='member'><a href="Bomo.html#public">public</a></li><li data-type='member'><a href="Bomo.html#public">public</a></li></ul><ul class='methods'><li class='list-title'>Methods</li><li data-type='method'><a href="Bomo.html#start">start</a></li><li data-type='method'><a href="Bomo.html#start">start</a></li><li data-type='method'><a href="Bomo.html#stop">stop</a></li><li data-type='method'><a href="Bomo.html#stop">stop</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-logger.html">logger</a><ul class='members'><li class='list-title'>Members</li><li data-type='member'><a href="module-logger.html#.timestamp">timestamp</a></li><li data-type='member'><a href="module-logger.html#.timestamp">timestamp</a></li></ul><ul class='methods'><li class='list-title'>Methods</li><li data-type='method'><a href="module-logger.html#~log">log</a></li><li data-type='method'><a href="module-logger.html#~log">log</a></li><li data-type='method'><a href="module-logger.html#~print">print</a></li><li data-type='method'><a href="module-logger.html#~print">print</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="env.html">env</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">structures/Bomo.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const EventEmitter = require("events");
+
+const log = require("../util/logger");
+const path = require("path");
+const Keyv = require("keyv");
+const { App } = require("@tinyhttp/app");
+const ejs = require("ejs");
+const sirv = require("sirv");
+const chalk = require("chalk");
+const loggingColors = {
+    "1": chalk.gray, // Informational responses
+    "2": chalk.cyan, // Successful responses
+    "3": chalk.gray, // Redirects
+    "4": chalk.yellow, // Client errors
+    "5": chalk.magenta, // Server errors
+};
+
+/**
+ * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App
+ * @extends {EventEmitter}
+ */
+class Bomo extends EventEmitter {
+    /**
+     * Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+     */
+    constructor() {
+        super();
+
+        /**
+         * Path of the publicly served folder. Used with sirv.
+         */
+        this.public = path.join(__dirname, "../public");
+
+        // Database
+        if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
+        /**
+         * Keyv Database
+         * @see {@link https://www.npmjs.com/package/keyv#usage}
+         * @type {Keyv}
+         */
+        this.db = process.env.db ? new Keyv(process.env.db) : new Keyv();
+        this.db.on("error", err => {
+            // Don't allow connection errors with database while starting
+            log.fatal("Keyv Connection Error", err);
+            return process.exit(1);
+        });
+
+        /**
+         * Tinyhttp App w/ ejs templating engine
+         * @see {@link https://tinyhttp.v1rtl.site/docs#application}
+         * @see {@link https://ejs.co/#docs}
+         * @type {App}
+         */
+        this.app = new App({
+            noMatchHandler: (req, res) => {
+                res.status(404);
+                // respond with html page
+                if (req.accepts("html")) {
+                    res.render("404.ejs", {
+                        title: `${process.env.title} - 404`,
+                        icon: "error.ico",
+                        url: req.url,
+                    });
+                    return;
+                }
+                // respond with json
+                if (req.accepts("json")) {
+                    res.json({ error: "Not found" });
+                    return;
+                }
+                // default to plain text
+                res.type("txt").send("Not found");
+            },
+            onError: (err, req, res) => {
+                res.status(500).send({
+                    message: err.message,
+                });
+            },
+        });
+
+        // Engine
+        this.app.engine("ejs", ejs.renderFile);
+
+        // Logging middleware via ./util/logger
+        this.app.use((req, res, next) => {
+            res.on("finish", () => {
+                const url = req.originalUrl || req.url;
+                const code = res.statusCode.toString();
+                const args = [];
+                args.push(req.ip);
+                args.push(req.method);
+                args.push(loggingColors[code[0]](code));
+                args.push(res.statusMessage);
+                args.push(url);
+                const message = args.join(" ").trim();
+                if (code[0] === "4" || code[0] === "5") {
+                    log.debug(message);
+                    log.trace(req);
+                    log.trace(res);
+                } else {
+                    log.trace(message);
+                }
+            });
+            next();
+        });
+
+        // Static webserver using sirv serving the public folder
+        // https://www.npmjs.com/package/sirv
+        this.app.use("/", sirv(this.public, {
+            maxAge: 86400, // Cached for 24 hours
+        }));
+    }
+
+    /**
+     * Starts bomo (just `this.app.listen()` for now)
+     */
+    start() {
+        // Ground control to major tom
+        this.app.listen(process.env.port);
+        log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
+    }
+
+    /**
+     * Stops bomo
+     */
+    stop() {
+        //
+    }
+}
+
+module.exports = Bomo;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.4</a> on 8/12/2021 using the <a href="https://github.com/Grafluxe/boxy-jsdoc-template" target="_blank">boxy-jsdoc-template</a> theme.
+</footer>
+
+<script src="scripts/prettify/prettify.js"></script>
+<script src="scripts/prettify/lang-css.js"></script>
+<script src="scripts/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>index.js - Documentation</title>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <span class="navicon"></span>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bomo.html">Bomo</a><ul class='members'><li class='list-title'>Members</li><li data-type='member'><a href="Bomo.html#app">app</a></li><li data-type='member'><a href="Bomo.html#app">app</a></li><li data-type='member'><a href="Bomo.html#db">db</a></li><li data-type='member'><a href="Bomo.html#db">db</a></li><li data-type='member'><a href="Bomo.html#public">public</a></li><li data-type='member'><a href="Bomo.html#public">public</a></li></ul><ul class='methods'><li class='list-title'>Methods</li><li data-type='method'><a href="Bomo.html#start">start</a></li><li data-type='method'><a href="Bomo.html#start">start</a></li><li data-type='method'><a href="Bomo.html#stop">stop</a></li><li data-type='method'><a href="Bomo.html#stop">stop</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-logger.html">logger</a><ul class='members'><li class='list-title'>Members</li><li data-type='member'><a href="module-logger.html#.timestamp">timestamp</a></li><li data-type='member'><a href="module-logger.html#.timestamp">timestamp</a></li></ul><ul class='methods'><li class='list-title'>Methods</li><li data-type='method'><a href="module-logger.html#~log">log</a></li><li data-type='method'><a href="module-logger.html#~log">log</a></li><li data-type='method'><a href="module-logger.html#~print">print</a></li><li data-type='method'><a href="module-logger.html#~print">print</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="env.html">env</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+# Tentative Structure
+    public/
+        assets/
+        css/
+        js/
+            main.js - the client code
+    structures/
+        Bomo.js    - internal logic
+        Game.js   - game logic
+        Lobby.js  - lobby class
+        Player.js - a "player"
+    views/
+        _header_, _footer_.ejs - header and footer, visible on every page
+        index.ejs - home thing
+        ???.js - more????
+    index.js - the start of the universe
+*/
+
+const fs = require("fs");
+const path = require("path");
+const dotenv = require("dotenv");
+const Bomo = require("./structures/Bomo");
+const log = require("./util/logger");
+const { DateTime } = require("luxon");
+log.info("Starting bomo...");
+
+// node.js process event listeners
+// See https://nodejs.org/api/process.html for more information
+process.on("uncaughtException", (err, origin) => {
+    log.fatal(`${origin},`, err);
+    return process.exit(1); // Always let code exit on uncaught exceptions
+});
+process.on("unhandledRejection", (reason, promise) => log.error(`unhandledRejection\n`, promise));
+process.on("rejectionHandled", (promise) => log.debug("rejectionHandled\n", promise));
+process.on("warning", (warning) => log.warn(warning));
+process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.warn("Exiting abnormally with code:", code));
+
+// Environment file setup
+const envPath = path.join(__dirname, ".env");
+const envTemplate = path.join(__dirname, "template.env");
+if (!fs.existsSync(envPath)) {
+    log.info("No .env file present, copying template...");
+    fs.copyFileSync(envTemplate, envPath);
+}
+
+/**
+ * Environment variables
+ * @type {Object}
+ * @namespace process.env
+ * @global
+ */
+const result = dotenv.config();
+if (result.error) {
+    log.error(result.error);
+    throw result.error;
+}
+
+// Instantiate bomo
+const bomo = new Bomo();
+
+// Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+
+// Register api routes with tinyhttp
+bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
+bomo.app.post("/time", (req, res, next) => res.json({
+    message: "yes i can here u are",
+    content: DateTime.now().toFormat("HH:mm:ss.SSS"),
+}));
+
+// Register page routes with tinyhttp
+this.app.get("/", (req, res, next) => res.render("index.ejs", {
+    title: process.env.title,
+    icon: "favicon.ico",
+    node_version: process.version,
+}));
+this.app.get("/test", (req, res, next) => res.render("test.ejs", {
+    title: `${process.env.title} - api test`,
+    icon: "favicon.ico",
+}));
+// app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
+
+// Start
+bomo.start();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc 3.6.4</a> on 8/12/2021 using the <a href="https://github.com/Grafluxe/boxy-jsdoc-template" target="_blank">boxy-jsdoc-template</a> theme.
+</footer>
+
+<script src="scripts/prettify/prettify.js"></script>
+<script src="scripts/prettify/lang-css.js"></script>
+<script src="scripts/script.js"></script>
+
+</body>
+</html>
