@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>util/log.js - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,179 +25,81 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">util/log.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    <span class="creds">
-      
-
-      
-    </span>
-
-    <hr>
-
     
-        <h2>
-        process
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
-
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-
-<div class="group" id=".env">
-
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>Environment variables</p>
-</div>
-
-
-
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-
-
-
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Modified logging module from [sandplate](https://github.com/06000208/sandplate)
+ * @module log
+ */
+
+import chalk from "chalk";
+import { DateTime } from "luxon";
+
+const color = {
+    "fatal": chalk.bgRed.black,
+    "error": chalk.red,
+    "warn": chalk.yellow,
+    "info": chalk.white.bold,
+    "http": chalk.blue,
+    "debug": chalk.green,
+    "trace": chalk.gray,
+};
+const errors = ["fatal", "error"];
+
+/**
+ * Logging timestamp format
+ * @readonly
+ * @todo If it was possible to store this via environment variable that would be nice
+ */
+const timestamp = "HH:mm:ss.SSS";
+
+/**
+ * Internal function used for logging
+ * @param {*} level
+ * @param  {...any} args
+ * @private
+ */
+const print = function(level, ...args) {
+    const prefix = `${chalk.gray(DateTime.now().toFormat(timestamp))} ${color[level](level)}`;
+    return errors.includes(level) ? console.error(prefix, ...args) : console.log(prefix, ...args);
+};
+
+/**
+ * Default exported logging function
+ *
+ * Using `log()` by itself is an alias to `log.info()`
+ * @param  {...any} args
+ * @function log
+ * @example
+ * log("example")
+ * log.fatal("example");
+ * log.error("example");
+ * log.warn("example");
+ * log.info("example");
+ * log.debug("example");
+ * log.trace("example");
+ */
+const log = (...args) => print(" info", ...args);
+log.fatal = (...args) => print("fatal", ...args);
+log.error = (...args) => print("error", ...args);
+log.warn = (...args) => print("warn", ...args);
+log.info = (...args) => print("info", ...args);
+log.debug = (...args) => print("debug", ...args);
+log.trace = (...args) => print("trace", ...args);
+
+export { log };
+
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>Room - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">Room</h1>
     
 
     
@@ -46,8 +46,10 @@
 
     
         <h2>
-        process
+        Room
         </h2>
+        
+            <div class="class-description"><p>A room, which manages a group of members, game settings, and the games themselves</p></div>
         
     
 </header>
@@ -56,52 +58,131 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
+
+
+    
+    <h2>Constructor</h2>
+    
+
+
+<div class="group" id="Room">
+
+
+    <h4 class="name"><span class="type-signature"></span>new <b>Room</b><span class="signature">(<span class="sig-params">bomo<span class="params-divider">, </span>creator<span class="params-divider">, </span>name<span class="signature-attributes">opt, nullable</span></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">bomo</span><span class="type"><span class="param-type">:<a href="Bomo.html">Bomo</a></span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+
+    <div class="description last"><p>Reference to the Bomo instantiating this Room</p></div>
+
+    
+
+    
+        <span class="name">creator</span><span class="type"><span class="param-type">:<a href="User.html">User</a></span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+
+    <div class="description last"><p>The initial user who created of a room who will be assigned initial leadership over it</p></div>
+
+    
+
+    
+        <span class="name">name</span><span class="type"><span class="param-type">:string</span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+        <span class="attributes">
+        
+            (optional)<br>
         
 
         
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
+            (nullable)<br>
+        
 
         
+        </span>
+    
+
+    <div class="description last"><p>The room's name, will fallback to the room's id if not supplied</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Room.js.html">structures/Room.js</a>, <a href="structures_Room.js.html#line8">line 8</a></div>
+
+
+</div>
+
     
     </div>
 
@@ -121,15 +202,15 @@
         
             
 
-<div class="group" id=".env">
+<div class="group" id="leaders">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
+<h4 class="name"><span class="type-signature"></span>leaders<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Environment variables</p>
+    <p>The room's current leaders</p>
 </div>
 
 
@@ -137,52 +218,76 @@
 
 
 
-<h5>Details</h5>
-<dl class="details">
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
+<div class="src">Source: <a href="structures_Room.js.html">structures/Room.js</a>, <a href="structures_Room.js.html#line35">line 35</a></div>
 
-    
 
-    
+</div>
 
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
         
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
+            
 
-    
-</dl>
- 
+<div class="group" id="members">
+
+<h4 class="name"><span class="type-signature"></span>members<span class="type-signature"></span></h4>
 
 
 
 
+<div class="description">
+    <p>The room's current members (P.S. is there a reason to use objects instead of arrays?)</p>
+</div>
 
 
 
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Room.js.html">structures/Room.js</a>, <a href="structures_Room.js.html#line27">line 27</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="name">
+
+<h4 class="name"><span class="type-signature"></span>name<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The room's name, will fallback to the room's id if not supplied</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Room.js.html">structures/Room.js</a>, <a href="structures_Room.js.html#line22">line 22</a></div>
 
 
 </div>

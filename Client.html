@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>Client - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">Client</h1>
     
 
     
@@ -46,8 +46,10 @@
 
     
         <h2>
-        process
+        Client
         </h2>
+        
+            <div class="class-description"><p>Central clientside object responsible for websocket connection, user identification, etc</p></div>
         
     
 </header>
@@ -56,10 +58,44 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
 
-        
+
+    
+    <h2>Constructor</h2>
+    
+
+
+<div class="group" id="Client">
+
+
+    <h4 class="name"><span class="type-signature"></span>new <b>Client</b><span class="signature">(<span class="sig-params"></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -91,7 +127,9 @@
     <dt class="tag-see">See</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget">https://developer.mozilla.org/en-US/docs/Web/API/EventTarget</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events">https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events</a></li>
         </ul>
     </dd>
     
@@ -101,9 +139,27 @@
  
 
 
-        
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line10">line 10</a></div>
+
+
+</div>
+
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>EventTarget</li>
+    </ul>
+
 
     
 
@@ -121,16 +177,136 @@
         
             
 
-<div class="group" id=".env">
+<div class="group" id="authorization">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
+<h4 class="name"><span class="type-signature">(nullable) </span>authorization<span class="type-signature">:string</span></h4>
 
 
 
 
 <div class="description">
-    <p>Environment variables</p>
+    <p>Authorization string encoded in base64</p>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line34">line 34</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="chat">
+
+<h4 class="name"><span class="type-signature"></span>chat<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Unfinished</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line22">line 22</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="expires">
+
+<h4 class="name"><span class="type-signature">(nullable) </span>expires<span class="type-signature">:number</span></h4>
+
+
+
+
+<div class="description">
+    <p>Latest expiration timestamp for the server side User's credentials</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line40">line 40</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="id">
+
+<h4 class="name"><span class="type-signature">(nullable) </span>id<span class="type-signature">:string</span></h4>
+
+
+
+
+<div class="description">
+    <p>The server side User's id</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line28">line 28</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="ws">
+
+<h4 class="name"><span class="type-signature"></span>ws<span class="type-signature"></span></h4>
+
+
+
 
 
 
@@ -165,9 +341,9 @@
     <dt class="tag-see">See</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket">https://developer.mozilla.org/en-US/docs/Web/API/WebSocket</a></li>
         
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Location">https://developer.mozilla.org/en-US/docs/Web/API/Location</a></li>
         </ul>
     </dd>
     
@@ -182,7 +358,7 @@
 
 
 
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line17">line 17</a></div>
 
 
 </div>
@@ -190,6 +366,182 @@
         
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+
+    
+
+
+<div class="group" id="connect">
+
+
+    <h4 class="name"><span class="type-signature">(async) </span><b>connect</b><span class="signature">(<span class="sig-params"></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Establishes stuff websocket connection</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line65">line 65</a></div>
+
+
+</div>
+
+        
+            
+
+
+    
+
+
+<div class="group" id="register">
+
+
+    <h4 class="name"><span class="type-signature">(async) </span><b>register</b><span class="signature">(<span class="sig-params">cache</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Registers a User with the server</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">cache</span><span class="type"><span class="param-type">:boolean</span></span>
+    
+
+    
+        <span class="default">
+        
+            = true
+        
+        </span>
+    
+
+    
+
+    <div class="description last"><p>Whether cached data may be reused</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Details</h5>
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-todo">To Do</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li><p>Save/retrieve data using window.localStorage</p></li>
+        </ul>
+    </dd>
+    
+</dl>
+ 
+
+
+
+
+
+<div class="src">Source: <a href="public_modules_structures_Client.js.html">public/modules/structures/Client.js</a>, <a href="public_modules_structures_Client.js.html#line48">line 48</a></div>
+
+
+</div>
+
+        
     
 
     

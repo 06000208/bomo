@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>Base - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">Base</h1>
     
 
     
@@ -46,7 +46,7 @@
 
     
         <h2>
-        process
+        Base
         </h2>
         
     
@@ -56,52 +56,109 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
+
+
+    
+
+
+<div class="group" id="Base">
+
+
+    <h4 class="name"><span class="type-signature">(abstract) </span>new <b>Base</b><span class="signature">(<span class="sig-params">bomo<span class="params-divider">, </span>id<span class="signature-attributes">opt, nullable</span></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">bomo</span><span class="type"><span class="param-type">:<a href="Bomo.html">Bomo</a></span></span>
+    
+
+    
+        <span class="default">
+        
+        </span>
+    
+
+    
+
+    <div class="description last"><p>Reference to the Bomo instantiating this</p></div>
+
+    
+
+    
+        <span class="name">id</span><span class="type"><span class="param-type">:string</span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+        <span class="attributes">
+        
+            (optional)<br>
         
 
         
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
+            (nullable)<br>
+        
 
         
+        </span>
+    
+
+    <div class="description last"><p>An optional pre-existing id, used for custom ids</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line7">line 7</a></div>
+
+
+</div>
+
     
     </div>
 
@@ -121,15 +178,15 @@
         
             
 
-<div class="group" id=".env">
+<div class="group" id="bomo">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
+<h4 class="name"><span class="type-signature">(readonly) </span>bomo<span class="type-signature">:<a href="Bomo.html">Bomo</a></span></h4>
 
 
 
 
 <div class="description">
-    <p>Environment variables</p>
+    <p>Reference to the instance of Bomo which instantiated this</p>
 </div>
 
 
@@ -137,52 +194,107 @@
 
 
 
-<h5>Details</h5>
-<dl class="details">
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line15">line 15</a></div>
 
-    
 
-    
+</div>
 
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
         
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
+            
 
-    
-</dl>
- 
+<div class="group" id="createdAt">
+
+<h4 class="name"><span class="type-signature"></span>createdAt<span class="type-signature">:DateTime</span></h4>
 
 
 
 
+<div class="description">
+    <p>DateTime instance for when this was instantiated</p>
+</div>
 
 
 
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line33">line 33</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="createdTimestamp">
+
+<h4 class="name"><span class="type-signature">(readonly) </span>createdTimestamp<span class="type-signature">:number</span></h4>
+
+
+
+
+<div class="description">
+    <p>A unix timestamp in milliseconds for when this was instantiated</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line41">line 41</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="id">
+
+<h4 class="name"><span class="type-signature"></span>id<span class="type-signature">:string</span></h4>
+
+
+
+
+<div class="description">
+    <p>A version 4 uuid or a custom id string</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line27">line 27</a></div>
 
 
 </div>
@@ -190,6 +302,180 @@
         
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+
+    
+
+
+<div class="group" id="toJSON">
+
+
+    <h4 class="name"><span class="type-signature"></span><b>toJSON</b><span class="signature">(<span class="sig-params">&hellip;objects</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Simple shortcut to JSON.stringify on this.toObject()</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">objects</span><span class="type"><span class="param-type">:any</span></span>
+    
+
+    
+
+    
+        <span class="attributes">
+        
+
+        
+
+        
+            (repeatable)<br>
+        
+        </span>
+    
+
+    <div class="description last"></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line67">line 67</a></div>
+
+
+</div>
+
+        
+            
+
+
+    
+
+
+<div class="group" id="toObject">
+
+
+    <h4 class="name"><span class="type-signature"></span><b>toObject</b><span class="signature">(<span class="sig-params">&hellip;objects</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">objects</span><span class="type"><span class="param-type">:object</span></span>
+    
+
+    
+
+    
+        <span class="attributes">
+        
+
+        
+
+        
+            (repeatable)<br>
+        
+        </span>
+    
+
+    <div class="description last"></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_Base.js.html">structures/Base.js</a>, <a href="structures_Base.js.html#line49">line 49</a></div>
+
+
+</div>
+
+        
     
 
     

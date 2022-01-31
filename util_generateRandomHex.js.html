@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>util/generateRandomHex.js - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,179 +25,42 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">util/generateRandomHex.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    <span class="creds">
-      
-
-      
-    </span>
-
-    <hr>
-
     
-        <h2>
-        process
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
-
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-
-<div class="group" id=".env">
-
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>Environment variables</p>
-</div>
-
-
-
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-
-
-
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Small utility for generating random hexadecimal strings
+ * @module generateRandomHex
+ */
+
+import { randomBytes } from "node:crypto";
+
+/**
+ * Generates a string of random hex bytes for use as an id. Due to its tiny size by default (2 bytes to the power of 16 = 65536 possible ids, 4 characters per id), this is easily prone to collisions and may perform recursion checking against a Map's keys to avoid them
+ * @param {?Map} [map] - A map for optional collision checking
+ * @param {number} [bytes=2] - The number of bytes generated, by default 2, which generates ids 4 characters long
+ * @param {number} [allowedRecursions=256] - The number of permitted recursions, by default 256
+ * @returns {?string} - the ID generated, null if it couldn't create a unique ID
+ */
+const generateRandomHex = function(map = null, bytes = 2, allowedRecursions = 256) {
+    if (allowedRecursions &lt;= 0) return null;
+    // if (map) if (map.size >= bytes ** 16) return null;
+    const id = randomBytes(bytes).toString("hex");
+    if (map) if (map.has(id)) return this.generateRandomID(map, bytes, allowedRecursions - 1);
+    return id;
+};
+
+export { generateRandomHex };
+</code></pre>
+        </article>
+    </section>
 
 
 

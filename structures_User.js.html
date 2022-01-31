@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>structures/User.js - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,179 +25,91 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">structures/User.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    <span class="creds">
-      
-
-      
-    </span>
-
-    <hr>
-
     
-        <h2>
-        process
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
-
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-
-<div class="group" id=".env">
-
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>Environment variables</p>
-</div>
-
-
-
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-
-
-
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
+import { createHash } from "node:crypto";
+import { Base } from "./Base.js";
+
+// const generateRandomHex = require("../util/generateRandomHex");
+
+/**
+ * @todo Needs jsdoc documentation
+ */
+class User extends Base {
+    /**
+     * @param {Bomo} bomo - Reference to the Bomo instantiating this User
+     * @param {?ip} ip - Ip address
+     */
+    constructor(bomo = null, ip = null) {
+        super(bomo);
+
+        this.username = null;
+        this.ip = ip;
+        this.ws = null;
+        this.leading = [];
+        this.rooms = [];
+
+        /**
+         * The last moment the User was considered online
+         * @type {?DateTime}
+         */
+        this.lastOnline = null; // DateTime.now();
+
+        /**
+         * @type {object}
+         * @property {string} username - sha256 hash of the user's ip address + user's id separated by a colon
+         * @property {string} password - A uuid v4 id. Note that passwords in authorization strings aren't salted
+         * @property {string} encoded - Base64 encoded authorization string, username + password separated by a colon
+         */
+        this.auth = {
+            username: createHash("sha256").update(`${this.ip}:${this.id}`).digest("hex"),
+            password: uuidv4(),
+            encoded: null,
+            // For some reason I thought you could do this, but it throws an error
+            // encoded: Buffer.from(`${this.auth.username}:${this.auth.password}`).toString("base64"),
+        };
+        this.auth.encoded = Buffer.from(`${this.auth.username}:${this.auth.password}`).toString("base64");
+        this.bomo.auth.set(this.auth.encoded, this.id);
+    }
+
+    get leader() {
+        return Boolean(this.leading.length);
+    }
+
+    get online() {
+        return Boolean(this.ws);
+    }
+
+    /**
+     * Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)
+     * @param  {...object} objects
+     */
+    toObject(...objects) {
+        return super.toObject({
+            "username": this.username,
+            "online": this.online,
+            "leader": this.leader,
+            "leading": this.leading,
+            "rooms": this.rooms,
+            "authorization": this.auth.encoded,
+        }, ...objects);
+    }
+}
+
+export { User };
+</code></pre>
+        </article>
+    </section>
 
 
 

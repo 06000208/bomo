@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>User - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">User</h1>
     
 
     
@@ -46,7 +46,7 @@
 
     
         <h2>
-        process
+        User
         </h2>
         
     
@@ -56,10 +56,96 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
+
+
+    
+
+
+<div class="group" id="User">
+
+
+    <h4 class="name"><span class="type-signature"></span>new <b>User</b><span class="signature">(<span class="sig-params">bomo<span class="params-divider">, </span>ip<span class="signature-attributes">nullable</span></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">bomo</span><span class="type"><span class="param-type">:<a href="Bomo.html">Bomo</a></span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+
+    <div class="description last"><p>Reference to the Bomo instantiating this User</p></div>
+
+    
+
+    
+        <span class="name">ip</span><span class="type"><span class="param-type">:ip</span></span>
+    
+
+    
+        <span class="default">
+        
+            = null
+        
+        </span>
+    
+
+    
+        <span class="attributes">
         
 
         
+            (nullable)<br>
+        
+
+        
+        </span>
+    
+
+    <div class="description last"><p>Ip address</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -88,20 +174,27 @@
     
 
     
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
+
+    
+    <dt class="tag-todo">To Do</dt>
+    <dd class="tag-todo">
         <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
+            <li><p>Needs jsdoc documentation</p></li>
         </ul>
     </dd>
-    
-
     
 </dl>
  
 
 
-        
+
+
+
+<div class="src">Source: <a href="structures_User.js.html">structures/User.js</a>, <a href="structures_User.js.html#line11">line 11</a></div>
+
+
+</div>
+
     
     </div>
 
@@ -121,15 +214,89 @@
         
             
 
-<div class="group" id=".env">
+<div class="group" id="auth">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
+<h4 class="name"><span class="type-signature"></span>auth<span class="type-signature">:object</span></h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties</h5>
+
+    
+
+<div class="props">
+    
+
+    
+        <span class="name">username</span><span class="type"><span class="param-type">:string</span></span>
+    
+
+    
+
+    
+
+    <div class="description last"><p>sha256 hash of the user's ip address + user's id separated by a colon</p></div>
+
+    
+
+    
+        <span class="name">password</span><span class="type"><span class="param-type">:string</span></span>
+    
+
+    
+
+    
+
+    <div class="description last"><p>A uuid v4 id. Note that passwords in authorization strings aren't salted</p></div>
+
+    
+
+    
+        <span class="name">encoded</span><span class="type"><span class="param-type">:string</span></span>
+    
+
+    
+
+    
+
+    <div class="description last"><p>Base64 encoded authorization string, username + password separated by a colon</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_User.js.html">structures/User.js</a>, <a href="structures_User.js.html#line37">line 37</a></div>
+
+
+</div>
+
+        
+            
+
+<div class="group" id="lastOnline">
+
+<h4 class="name"><span class="type-signature">(nullable) </span>lastOnline<span class="type-signature">:DateTime</span></h4>
 
 
 
 
 <div class="description">
-    <p>Environment variables</p>
+    <p>The last moment the User was considered online</p>
 </div>
 
 
@@ -137,44 +304,6 @@
 
 
 
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
 
 
 
@@ -182,7 +311,7 @@
 
 
 
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+<div class="src">Source: <a href="structures_User.js.html">structures/User.js</a>, <a href="structures_User.js.html#line29">line 29</a></div>
 
 
 </div>
@@ -190,6 +319,95 @@
         
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+
+    
+
+
+<div class="group" id="toObject">
+
+
+    <h4 class="name"><span class="type-signature"></span><b>toObject</b><span class="signature">(<span class="sig-params">&hellip;objects</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
+    
+
+    
+        <span class="name">objects</span><span class="type"><span class="param-type">:object</span></span>
+    
+
+    
+
+    
+        <span class="attributes">
+        
+
+        
+
+        
+            (repeatable)<br>
+        
+        </span>
+    
+
+    <div class="description last"></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_User.js.html">structures/User.js</a>, <a href="structures_User.js.html#line60">line 60</a></div>
+
+
+</div>
+
+        
     
 
     

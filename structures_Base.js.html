@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>structures/Base.js - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,179 +25,99 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">structures/Base.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    <span class="creds">
-      
-
-      
-    </span>
-
-    <hr>
-
     
-        <h2>
-        process
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
-
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-
-<div class="group" id=".env">
-
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>Environment variables</p>
-</div>
-
-
-
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-
-
-
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
+
+/**
+ * @abstract
+ */
+class Base {
+    /**
+     * @param {Bomo} bomo - Reference to the Bomo instantiating this
+     * @param {?string} [id] An optional pre-existing id, used for custom ids
+     */
+    constructor(bomo, id = null) {
+        if (!bomo) throw new TypeError("Class instantiated without reference to bomo");
+
+        /**
+         * Reference to the instance of Bomo which instantiated this
+         * @name Base#bomo
+         * @type {Bomo}
+         * @readonly
+         */
+        Object.defineProperty(this, "bomo", { value: bomo });
+
+        /**
+         * A version 4 uuid or a custom id string
+         * @type {string}
+         */
+        this.id = id || uuidv4();
+
+        /**
+         * DateTime instance for when this was instantiated
+         * @type {DateTime}
+         */
+        this.createdAt = DateTime.now();
+    }
+
+    /**
+     * A unix timestamp in milliseconds for when this was instantiated
+     * @type {number}
+     * @readonly
+     */
+    get createdTimestamp() {
+        return this.createdAt.toMillis();
+    }
+
+    /**
+     * Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)
+     * @param  {...object} objects
+     */
+    toObject(...objects) {
+        const data = {
+            "id": this.id,
+            "createdTimestamp": this.createdTimestamp,
+        };
+        if (objects.length) {
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals
+            return objects.reduce((previousObject, currentObject) => ({ ...previousObject, ...currentObject }), data);
+        } else {
+            return data;
+        }
+    }
+
+    /**
+     * Simple shortcut to JSON.stringify on this.toObject()
+     * @param  {...any} objects
+     */
+    toJSON(...objects) {
+        return JSON.stringify(this.toObject(...objects), null, 0); // No whitespace
+    }
+
+    valueOf() {
+        return this.id;
+    }
+
+    toString() {
+        return this.id;
+    }
+}
+
+export { Base };
+</code></pre>
+        </article>
+    </section>
 
 
 

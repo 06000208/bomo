@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>structures/WebSocketEvents.js - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,179 +25,76 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">structures/WebSocketEvents.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    <span class="creds">
-      
-
-      
-    </span>
-
-    <hr>
-
     
-        <h2>
-        process
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
-
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-
-<div class="group" id=".env">
-
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
-
-
-
-<div class="description">
-    <p>Environment variables</p>
-</div>
-
-
-
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
-
-
-
-
-
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { log } from "../util/log.js";
+
+const print = function(websocket, req, ...messages) {
+    const args = [req.ip || req.socket.remoteAddress, ...messages];
+    const message = args.join(" ").trim();
+    log.trace(message);
+};
+
+/**
+ * A container for websocket listeners
+ */
+class WebSocketEvents extends null {
+    // Websocket server functions
+    /** @todo this has to add listeners to new websockets and handle authentication */
+    static serverOnConnection(bomo, websocket, request) {
+        //
+    }
+    static serverOnClose(bomo) {
+        //
+    }
+    static serverOnError(bomo) {
+        //
+    }
+    static serverOnHeaders(bomo) {
+        //
+    }
+    static serverOnListening(bomo) {
+        //
+    }
+    // Websocket functions
+    static onClose() {
+        //
+    }
+    static onError() {
+        //
+    }
+    static onMessage() {
+        //
+    }
+    static onOpen() {
+        //
+    }
+    static onPing() {
+        //
+    }
+    static onPong() {
+        //
+    }
+    static onUnexpectedResponse() {
+        //
+    }
+    static onUpgrade() {
+        //
+    }
+}
+
+export { WebSocketEvents };
+</code></pre>
+        </article>
+    </section>
 
 
 

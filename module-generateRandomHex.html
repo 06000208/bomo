@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>generateRandomHex - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">generateRandomHex</h1>
     
 
     
@@ -45,9 +45,8 @@
     <hr>
 
     
-        <h2>
-        process
-        </h2>
+        
+            
         
     
 </header>
@@ -56,50 +55,53 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
+            <div class="description"><p>Small utility for generating random hexadecimal strings</p></div>
         
 
         
+            
 
 
 
-<h5>Details</h5>
-<dl class="details">
-    
+<div class="group" id="generateRandomHex">
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
 
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
 
-    
-</dl>
- 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="util_generateRandomHex.js.html">util/generateRandomHex.js</a>, <a href="util_generateRandomHex.js.html#line1">line 1</a></div>
+
+
+</div>
 
         
     
@@ -116,20 +118,28 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
 
-<div class="group" id=".env">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
+    
 
+
+<div class="group" id="~generateRandomHex">
+
+
+    <h4 class="name"><span class="type-signature">(inner) </span><b>generateRandomHex</b><span class="signature">(<span class="sig-params">map<span class="signature-attributes">opt, nullable</span><span class="params-divider">, </span>bytes<span class="signature-attributes">opt</span><span class="params-divider">, </span>allowedRecursions<span class="signature-attributes">opt</span></span>)</span><span class="type-signature">:(nullable) string</span></h4>
+
+    
 
 
 
 <div class="description">
-    <p>Environment variables</p>
+    <p>Generates a string of random hex bytes for use as an id. Due to its tiny size by default (2 bytes to the power of 16 = 65536 possible ids, 4 characters per id), this is easily prone to collisions and may perform recursion checking against a Map's keys to avoid them</p>
 </div>
 
 
@@ -137,44 +147,137 @@
 
 
 
-<h5>Details</h5>
-<dl class="details">
+
+
+
+    <h5>Parameters</h5>
+    
+
+<div class="params">
     
 
     
-
+        <span class="name">map</span><span class="type"><span class="param-type">:Map</span></span>
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
+        <span class="default">
         
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
-        </ul>
+            = null
+        
+        </span>
+    
+
+    
+        <span class="attributes">
+        
+            (optional)<br>
+        
+
+        
+            (nullable)<br>
+        
+
+        
+        </span>
+    
+
+    <div class="description last"><p>A map for optional collision checking</p></div>
+
+    
+
+    
+        <span class="name">bytes</span><span class="type"><span class="param-type">:number</span></span>
+    
+
+    
+        <span class="default">
+        
+            = 2
+        
+        </span>
+    
+
+    
+        <span class="attributes">
+        
+            (optional)<br>
+        
+
+        
+
+        
+        </span>
+    
+
+    <div class="description last"><p>The number of bytes generated, by default 2, which generates ids 4 characters long</p></div>
+
+    
+
+    
+        <span class="name">allowedRecursions</span><span class="type"><span class="param-type">:number</span></span>
+    
+
+    
+        <span class="default">
+        
+            = 256
+        
+        </span>
+    
+
+    
+        <span class="attributes">
+        
+            (optional)<br>
+        
+
+        
+
+        
+        </span>
+    
+
+    <div class="description last"><p>The number of permitted recursions, by default 256</p></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        <span class="param-type">:string</span>
     </dd>
-    
-
-    
 </dl>
- 
+
+<div class="param-desc">
+    <ul>
+<li>the ID generated, null if it couldn't create a unique ID</li>
+</ul>
+</div>
+
+
+    
 
 
 
@@ -182,14 +285,15 @@
 
 
 
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+
+
+
+<div class="src">Source: <a href="util_generateRandomHex.js.html">util/generateRandomHex.js</a>, <a href="util_generateRandomHex.js.html#line15">line 15</a></div>
 
 
 </div>
 
         
-    
-
     
 
     

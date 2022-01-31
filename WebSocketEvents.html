@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>process - Documentation</title>
+    <title>WebSocketEvents - Documentation</title>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -25,7 +25,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">process</h1>
+    <h1 class="page-title">WebSocketEvents</h1>
     
 
     
@@ -46,8 +46,10 @@
 
     
         <h2>
-        process
+        WebSocketEvents
         </h2>
+        
+            <div class="class-description"><p>A container for websocket listeners</p></div>
         
     
 </header>
@@ -56,52 +58,57 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Information and control over the current Node.js process</p></div>
-        
 
-        
-
-
-
-<h5>Details</h5>
-<dl class="details">
-    
 
     
-
+    <h2>Constructor</h2>
     
+
+
+<div class="group" id="WebSocketEvents">
+
+
+    <h4 class="name"><span class="type-signature"></span>new <b>WebSocketEvents</b><span class="signature">(<span class="sig-params"></span>)</span><span class="type-signature"></span></h4>
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html">https://nodejs.org/docs/latest/api/process.html</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
- 
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="src">Source: <a href="structures_WebSocketEvents.js.html">structures/WebSocketEvents.js</a>, <a href="structures_WebSocketEvents.js.html#line12">line 12</a></div>
+
+
+</div>
+
     
     </div>
 
@@ -116,21 +123,45 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
 
-<div class="group" id=".env">
 
-<h4 class="name"><span class="type-signature">(static, readonly) </span>env<span class="type-signature">:Object</span></h4>
-
+    
 
 
+<div class="group" id=".serverOnConnection">
 
-<div class="description">
-    <p>Environment variables</p>
-</div>
+
+    <h4 class="name"><span class="type-signature">(static) </span><b>serverOnConnection</b><span class="signature">(<span class="sig-params"></span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -162,16 +193,14 @@
     
 
     
-    <dt class="tag-see">See</dt>
-    <dd class="tag-see">
+
+    
+    <dt class="tag-todo">To Do</dt>
+    <dd class="tag-todo">
         <ul>
-            <li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_env">https://nodejs.org/docs/latest/api/process.html#process_process_env</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/dotenv">https://www.npmjs.com/package/dotenv</a></li>
+            <li><p>this has to add listeners to new websockets and handle authentication</p></li>
         </ul>
     </dd>
-    
-
     
 </dl>
  
@@ -180,16 +209,12 @@
 
 
 
-
-
-<div class="src">Source: <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a></div>
+<div class="src">Source: <a href="structures_WebSocketEvents.js.html">structures/WebSocketEvents.js</a>, <a href="structures_WebSocketEvents.js.html#line15">line 15</a></div>
 
 
 </div>
 
         
-    
-
     
 
     
